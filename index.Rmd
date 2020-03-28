@@ -1,0 +1,373 @@
+---
+title: "Presentation Ninja"
+subtitle: "\u2694 <br/>with xaringan and xaringanthemer"  
+author: "Yihui Xie"
+date: '`r Sys.Date()`'
+output: 
+  xaringan::moon_reader:
+      css: xaringan-themer.css
+      lib_dir: libs
+      seal: false
+      nature:
+        countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+mono_accent(
+ base_color = "#0F425CFF",
+  black_color = "#0F425CFF",
+  header_color = "#CC8214FF",
+  text_bold_color = "#800000FF",
+  table_row_even_background_color = "#FFFFFF",
+  title_slide_text_color = "#CC8214FF",
+  table_border_color = "#01665E",
+  header_font_google = google_font("Chilanka"),
+  text_font_google   = google_font("Lato", "400", "400i"))
+
+```
+
+
+<br><br><br>
+
+.center[
+##Una inferencia causal correcta: clasificación de las tareas de ciencias de datos## 
+**_en los tiempos de COVID-19_** ]
+
+<br> <br>
+
+.right[
+L. Paloma Rojas Saunero
+
+Estudiante de doctorado
+
+**Departamento de Epidemiología**
+
+*Equipo de Inferencia Causal - Equipo de neuroepidemiología*]
+
+.footnote[
+<img src=https://www.ichom.org/wp-content/uploads/2013/10/Erasmuslogo-for-slider.png  width="180" />
+]
+
+---
+
+## Correlación y Causalidad
+
+.center[<img src= ./figs/correlation.png width="80%"/>]
+
+.footnote[Fuente: https://es.xkcd.com/strips/correlacion/]
+
+---
+
+## Ensayos clínicos aleatorizados (ECAs)
+
+--
+
+.center[<img src= ./figs/rct_goldstandard.png width="80%"/>]
+
+---
+
+## El valor de los estudios observacionales
+
+.pull-left[
+<img src= ./figs/pump.jpg width="100%"/>
+]
+
+--
+
+.pull-right[
+<img src= ./figs/smoke.jpg width="100%"/>
+]
+
+---
+
+## Paradojas
+.pull-left[
+<img src= ./figs/simp1.png width="100%"/>
+]
+
+--
+
+.pull-right[
+<img src= ./figs/simp2.png width="100%"/>
+]
+
+---
+
+## Una segunda oportunidad a la inferencia causal
+
+.pull-left[
+
+- En el siglo XXI diferentes disciplinas formalizaron y desarrollaron los métodos para poder cuantificar los efectos causales a partir de datos observaciones
+
+] 
+
+.pull-right[
+<img src= ./figs/dag.png width="100%"/>
+]
+
+---
+
+## La pregunta de investigación
+
+- Muchas veces nos referimos al análisis de datos como una forma de extraer información de los datos.
+
+--
+
+- Debemos definir claramente lo que significa *extraer* información para poder pensar sistemáticamente en los tipos de datos, los supuestos y los métodos analíticos necesarios.
+
+--
+
+- Podemos dividir las tareas de ciencias de datos en epidemiología en:
+
+  - Descripción
+  
+  - Predicción
+  
+  - Predicción contrafactual
+
+---
+
+## Descripción
+
+- Nos permite tener un resumen cuantitativo de algunas características del mundo.
+
+- Los métodos analíticos pueden ser:
+
+  - Una proporción o una media aritmética
+  
+  - Métodos sofisticados de algoritmos de aprendizaje no supervisados (análisis de cluster)
+  
+  - Visualizaciones
+
+---
+
+.center[<img src= ./figs/hopkins.png width="120%"/>]
+
+.footnote[Fuente: https://coronavirus.jhu.edu/map.html]
+---
+
+## Recomendaciones
+
+- Es muy importante definir claramente a cada variable y quienes son parte de la muestra observada. Ejemplos:
+
+ - Número de tests de diagnóstico realizados
+ 
+ - Cómo se define muerte por COVID-19 en los diferentes países
+
+--
+
+- Si vamos a hacer comparaciones entre países tenemos además tenemos que tomar en cuenta el tamaño de la población en cada país.
+
+
+
+---
+
+## Predicción
+
+.pull-left[<img src= ./figs/input.png width="100%"/>]
+
+--
+
+.pull-right[
+
+- Nos permite utilizar datos ya medidos (el input) para poder predecir un nuevo dato (output)
+
+- Estudios de diagnóstico y algoritmos de pronóstico
+
+- Los métodos analíticos pueden ser:
+
+  - Un coeficiente de correlación
+  
+  - Modelos de regresión
+  
+  - Métodos sofisticados de algoritmos de aprendizaje supervisados (random forests, redes neuronales)
+  
+]
+
+.footnote[Imagen: https://makecode.microbit.org/]
+
+---
+
+.center[<img src= ./figs/sudamerica.png width="100%"/>]
+
+.footnote[Imagen: https://lab-tecnosocial.github.io/dash_covid19_bo/]
+
+---
+
+.center[<img src= ./figs/symptoms.jpg width="60%"/>]
+
+---
+
+.center[<img src= ./figs/scores.png width="60%"/>]
+
+.footnote[Fuente: https://www.medrxiv.org/content/10.1101/2020.03.24.20041020v1.full.pdf+html]
+---
+
+## Recomendaciones
+
+- Los estudios de predicción necesitan ser validados y calibrados al ser utilizados en nuevos datos.
+
+--
+
+- También requiren una recolección de datos rigurosa y sistemática, y el tamaño de muestra es muy importante.
+
+--
+
+- Pueden sufrir de sesgos en:
+
+  - La selección de los participantes
+  
+  - La selección de los predictores
+  
+  - La definición del evento de desenlace
+  
+  - Durante el análisis
+  
+--
+  
+- De los 15 estudios de modelos de predicción para COVID-19, **todos** tienen un **riesgo elevado** de ser sesgados.
+---
+
+## Predicción contrafactual
+
+- Nos permite utilizar datos para predecir ciertas características en el mundo, si el mundo fuera diferente.
+
+--
+- En un ECA podemos tomar la diferencia de proporciones en quienes recibieron tratamiento A vs. B.
+
+--
+
+- Cuando los ECA no son éticos o factibles, utilizamos datos observaciones para simular los escenarios contrafactuales.
+
+--
+- Son preguntas que responden a:  **_Qué pasaría si toda la población sigue cierta intervención?_**
+
+---
+
+.center[<img src="https://behavioralscientist.org/wp-content/uploads/2020/03/washpo.gif" alt="" class="wp-image-23185">]
+
+.footnote[Fuente: https://www.washingtonpost.com/graphics/2020/world/corona-simulator/]
+
+
+---
+
+.center[<img src= ./figs/calcu2.png width="100%"/>]
+
+.footnote[Fuente: http://gabgoh.github.io/COVID/index.html]
+
+
+---
+
+## Recomendaciones
+
+- La **inferencia causal** requiere que conozcamos las estructuras causales del sistema que están en estudio.
+
+--
+
+- Es decir que necesitamos tener **expertise** en el tema de investigación, porque sólo así podemos determinar que variables podrían ser confundidoras en nuestro análisis.
+
+--
+
+- Tenemos que prevenir y eliminar los potenciales **sesgos de medición, selección**.
+ 
+---
+
+## Implicaciones en la toma de decisiones
+
+- La ciencia de datos/epidemiología tiene el objetivo de ayudarnos a tomar mejores decisiones.
+
+--
+
+- Los **estudios descriptivos** nos permiten entender el estado actual de la situación.
+
+--
+
+- Los **algoritmos predictivos** nos ayudan a diagnosticar e identificar qué pacientes tienen un mal pronóstico.
+
+--
+
+- Para decidir que tipo de **_intervenciones_** pueden prevenir o tratar una enfermedad, necesitamos de la **inferencia causal (predicción contrafactual)**.
+
+---
+
+## ..en los tiempos de COVID-19
+
+- Para evaluar el efecto de las intervenciones de prevención ante el COVID-19 necesitamos entender la **estructura causal** de la pandemia: 
+
+  - Las características y evolución del virus
+  
+  - Los factores individuales de las personas efectadas
+  
+  - Los factores sociales y ambientales que pudiesen afectar en cómo se comporta la epidemia en nuestra población.
+  
+  - El acceso a recursos hospitalarios.
+
+---
+
+## Recomendaciones e implicaciones en la enseñanza
+
+
+- En cada tarea tenemos que poder articular:
+
+ - Cuál es la pregunta de investigación?
+ 
+ - Cuáles son los requirimientos de los datos?
+ 
+ - Cuáles son las amenazas a la validez (interna y externa)?
+ 
+ - Cuál es el rol del expertise en el tema?
+
+--
+
+- Los estudios de **descripción y predicción** son vulnerables los **_sesgos de selección y de medición_**.
+
+--
+
+- Los estudios de **inferencia causal** son vulnerables además a los **_sesgos de confusión_**.
+
+--
+- Al utilizar datos observaciones para responder preguntas causales tenemos que estructurar nuestro diseño de investigación cómo si fuese un ECA.
+
+---
+
+## Conclusiones
+
+--
+- Estamos en un momento histórico, en el cual tenemos que trabajar **interdisciplinariamente** para poder utilizar los datos que se están generando de la forma adecuada.
+
+--
+
+- La investigación de diferentes intervenciones (políticas públicas de salud, tratamiento de pacientes infectados) nace a partir de preguntas de inferencia causal.
+
+--
+
+- Los modelos de predicción se han popularizado como inteligencia artificial. La abilidad de predecir escenarios contrafactuales integrando el conocimiento conceptual del tema con los algoritmos adecuados matemáticos.
+
+--
+
+- Quedemonos en casa
+
+---
+
+name: title
+class: center, middle
+
+#Gracias!!!#
+
+
+### Encuentrame en:
+`r icon:: fa("paper-plane", colour ="#011A5E")`</i>&nbsp;palolili@gmail.org</a><br>
+
+`r icon:: fa("twitter", colour = "#011A5E")` <a href="http://twitter.com/palolili23"> </i>&nbsp; @palolili23</a><br>
+
+`r icon:: fa("github", colour = "#011A5E")` <a href="https://github.com/palolili23"> </i>&nbsp; @palolili23</a><br>
+
+

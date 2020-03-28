@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Presentation Ninja</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Yihui Xie" />
+    <meta name="date" content="2020-03-28" />
+    <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.center[
+##Una inferencia causal correcta: clasificación de las tareas de ciencias de datos## 
+**_en los tiempos de COVID-19_** ]
+
+&lt;br&gt; &lt;br&gt;
+
+.right[
+L. Paloma Rojas Saunero
+
+Estudiante de doctorado
+
+**Departamento de Epidemiología**
+
+*Equipo de Inferencia Causal - Equipo de neuroepidemiología*]
+
+.footnote[
+&lt;img src=https://www.ichom.org/wp-content/uploads/2013/10/Erasmuslogo-for-slider.png  width="180" /&gt;
+]
+
+---
+
+## Correlación y Causalidad
+
+.center[&lt;img src= ./figs/correlation.png width="80%"/&gt;]
+
+.footnote[Fuente: https://es.xkcd.com/strips/correlacion/]
+
+---
+
+## Ensayos clínicos aleatorizados (ECAs)
+
+--
+
+.center[&lt;img src= ./figs/rct_goldstandard.png width="80%"/&gt;]
+
+---
+
+## El valor de los estudios observacionales
+
+.pull-left[
+&lt;img src= ./figs/pump.jpg width="100%"/&gt;
+]
+
+--
+
+.pull-right[
+&lt;img src= ./figs/smoke.jpg width="100%"/&gt;
+]
+
+---
+
+## Paradojas
+.pull-left[
+&lt;img src= ./figs/simp1.png width="100%"/&gt;
+]
+
+--
+
+.pull-right[
+&lt;img src= ./figs/simp2.png width="100%"/&gt;
+]
+
+---
+
+## Una segunda oportunidad a la inferencia causal
+
+.pull-left[
+
+- En el siglo XXI diferentes disciplinas formalizaron y desarrollaron los métodos para poder cuantificar los efectos causales a partir de datos observaciones
+
+] 
+
+.pull-right[
+&lt;img src= ./figs/dag.png width="100%"/&gt;
+]
+
+---
+
+## La pregunta de investigación
+
+- Muchas veces nos referimos al análisis de datos como una forma de extraer información de los datos.
+
+--
+
+- Debemos definir claramente lo que significa *extraer* información para poder pensar sistemáticamente en los tipos de datos, los supuestos y los métodos analíticos necesarios.
+
+--
+
+- Podemos dividir las tareas de ciencias de datos en epidemiología en:
+
+  - Descripción
+  
+  - Predicción
+  
+  - Predicción contrafactual
+
+---
+
+## Descripción
+
+- Nos permite tener un resumen cuantitativo de algunas características del mundo.
+
+- Los métodos analíticos pueden ser:
+
+  - Una proporción o una media aritmética
+  
+  - Métodos sofisticados de algoritmos de aprendizaje no supervisados (análisis de cluster)
+  
+  - Visualizaciones
+
+---
+
+.center[&lt;img src= ./figs/hopkins.png width="120%"/&gt;]
+
+.footnote[Fuente: https://coronavirus.jhu.edu/map.html]
+---
+
+## Recomendaciones
+
+- Es muy importante definir claramente a cada variable y quienes son parte de la muestra observada. Ejemplos:
+
+ - Número de tests de diagnóstico realizados
+ 
+ - Cómo se define muerte por COVID-19 en los diferentes países
+
+--
+
+- Si vamos a hacer comparaciones entre países tenemos además tenemos que tomar en cuenta el tamaño de la población en cada país.
+
+
+
+---
+
+## Predicción
+
+.pull-left[&lt;img src= ./figs/input.png width="100%"/&gt;]
+
+--
+
+.pull-right[
+
+- Nos permite utilizar datos ya medidos (el input) para poder predecir un nuevo dato (output)
+
+- Estudios de diagnóstico y algoritmos de pronóstico
+
+- Los métodos analíticos pueden ser:
+
+  - Un coeficiente de correlación
+  
+  - Modelos de regresión
+  
+  - Métodos sofisticados de algoritmos de aprendizaje supervisados (random forests, redes neuronales)
+  
+]
+
+.footnote[Imagen: https://makecode.microbit.org/]
+
+---
+
+.center[&lt;img src= ./figs/sudamerica.png width="100%"/&gt;]
+
+.footnote[Imagen: https://lab-tecnosocial.github.io/dash_covid19_bo/]
+
+---
+
+.center[&lt;img src= ./figs/symptoms.jpg width="60%"/&gt;]
+
+---
+
+.center[&lt;img src= ./figs/scores.png width="60%"/&gt;]
+
+.footnote[Fuente: https://www.medrxiv.org/content/10.1101/2020.03.24.20041020v1.full.pdf+html]
+---
+
+## Recomendaciones
+
+- Los estudios de predicción necesitan ser validados y calibrados al ser utilizados en nuevos datos.
+
+--
+
+- También requiren una recolección de datos rigurosa y sistemática, y el tamaño de muestra es muy importante.
+
+--
+
+- Pueden sufrir de sesgos en:
+
+  - La selección de los participantes
+  
+  - La selección de los predictores
+  
+  - La definición del evento de desenlace
+  
+  - Durante el análisis
+  
+--
+  
+- De los 15 estudios de modelos de predicción para COVID-19, **todos** tienen un **riesgo elevado** de ser sesgados.
+---
+
+## Predicción contrafactual
+
+- Nos permite utilizar datos para predecir ciertas características en el mundo, si el mundo fuera diferente.
+
+--
+- En un ECA podemos tomar la diferencia de proporciones en quienes recibieron tratamiento A vs. B.
+
+--
+
+- Cuando los ECA no son éticos o factibles, utilizamos datos observaciones para simular los escenarios contrafactuales.
+
+--
+- Son preguntas que responden a:  **_Qué pasaría si toda la población sigue cierta intervención?_**
+
+---
+
+.center[&lt;img src="https://behavioralscientist.org/wp-content/uploads/2020/03/washpo.gif" alt="" class="wp-image-23185"&gt;]
+
+.footnote[Fuente: https://www.washingtonpost.com/graphics/2020/world/corona-simulator/]
+
+
+---
+
+.center[&lt;img src= ./figs/calcu2.png width="100%"/&gt;]
+
+.footnote[Fuente: http://gabgoh.github.io/COVID/index.html]
+
+
+---
+
+## Recomendaciones
+
+- La **inferencia causal** requiere que conozcamos las estructuras causales del sistema que están en estudio.
+
+--
+
+- Es decir que necesitamos tener **expertise** en el tema de investigación, porque sólo así podemos determinar que variables podrían ser confundidoras en nuestro análisis.
+
+--
+
+- Tenemos que prevenir y eliminar los potenciales **sesgos de medición, selección**.
+ 
+---
+
+## Implicaciones en la toma de decisiones
+
+- La ciencia de datos/epidemiología tiene el objetivo de ayudarnos a tomar mejores decisiones.
+
+--
+
+- Los **estudios descriptivos** nos permiten entender el estado actual de la situación.
+
+--
+
+- Los **algoritmos predictivos** nos ayudan a diagnosticar e identificar qué pacientes tienen un mal pronóstico.
+
+--
+
+- Para decidir que tipo de **_intervenciones_** pueden prevenir o tratar una enfermedad, necesitamos de la **inferencia causal (predicción contrafactual)**.
+
+---
+
+## ..en los tiempos de COVID-19
+
+- Para evaluar el efecto de las intervenciones de prevención ante el COVID-19 necesitamos entender la **estructura causal** de la pandemia: 
+
+  - Las características y evolución del virus
+  
+  - Los factores individuales de las personas efectadas
+  
+  - Los factores sociales y ambientales que pudiesen afectar en cómo se comporta la epidemia en nuestra población.
+  
+  - El acceso a recursos hospitalarios.
+
+---
+
+## Recomendaciones e implicaciones en la enseñanza
+
+
+- En cada tarea tenemos que poder articular:
+
+ - Cuál es la pregunta de investigación?
+ 
+ - Cuáles son los requirimientos de los datos?
+ 
+ - Cuáles son las amenazas a la validez (interna y externa)?
+ 
+ - Cuál es el rol del expertise en el tema?
+
+--
+
+- Los estudios de **descripción y predicción** son vulnerables los **_sesgos de selección y de medición_**.
+
+--
+
+- Los estudios de **inferencia causal** son vulnerables además a los **_sesgos de confusión_**.
+
+--
+- Al utilizar datos observaciones para responder preguntas causales tenemos que estructurar nuestro diseño de investigación cómo si fuese un ECA.
+
+---
+
+## Conclusiones
+
+--
+- Estamos en un momento histórico, en el cual tenemos que trabajar **interdisciplinariamente** para poder utilizar los datos que se están generando de la forma adecuada.
+
+--
+
+- La investigación de diferentes intervenciones (políticas públicas de salud, tratamiento de pacientes infectados) nace a partir de preguntas de inferencia causal.
+
+--
+
+- Los modelos de predicción se han popularizado como inteligencia artificial. La abilidad de predecir escenarios contrafactuales integrando el conocimiento conceptual del tema con los algoritmos adecuados matemáticos.
+
+--
+
+- Quedemonos en casa
+
+---
+
+name: title
+class: center, middle
+
+#Gracias!!!#
+
+
+### Encuentrame en:
+<i class="fas  fa-paper-plane " style="color:#011A5E;"></i>&lt;/i&gt;&amp;nbsp;palolili@gmail.org&lt;/a&gt;&lt;br&gt;
+
+<i class="fab  fa-twitter " style="color:#011A5E;"></i> &lt;a href="http://twitter.com/palolili23"&gt; &lt;/i&gt;&amp;nbsp; @palolili23&lt;/a&gt;&lt;br&gt;
+
+<i class="fab  fa-github " style="color:#011A5E;"></i> &lt;a href="https://github.com/palolili23"&gt; &lt;/i&gt;&amp;nbsp; @palolili23&lt;/a&gt;&lt;br&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  /* Replace <script> tags in slides area to make them executable
+   *
+   * Runs after post-processing of markdown source into slides and replaces only
+   * <script>s on the last slide of continued slides using the .has-continuation
+   * class added by xaringan. Finally, any <script>s in the slides area that
+   * aren't executed are commented out.
+   */
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+  var scriptsNotExecuted = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container.has-continuation script'
+  );
+  if (!scriptsNotExecuted.length) return;
+  for (var i = 0; i < scriptsNotExecuted.length; i++) {
+    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
+    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
